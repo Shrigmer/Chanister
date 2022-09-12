@@ -1,5 +1,6 @@
-# Chanister
+# <img src="./ChanisterWpf/Resources/logo.png" width="24"> Chanister
 Chanister is a browser for 4chan(nel) written in C# .NET 6 WPF only available for Windows™ (L*nux users might cope/seethe/fork).
+
 ## The current feature set
 1. Browsing boards/threads/posts
 2. Viewing images, gifs and webms
