@@ -1,0 +1,47 @@
+﻿<Button
+    x:Class="ChanisterWpf.CustomTabItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChanisterWpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Height="32"
+    MaxWidth="120"
+    Margin="0,0,0,0"
+    d:DesignHeight="32"
+    Click="CustomTabItem_Click"
+    MouseDoubleClick="Button_MouseDoubleClick"
+    mc:Ignorable="d">
+    <Button.Content>
+        <TextBlock
+            x:Name="title"
+            Margin="0,0,0,0"
+            FontSize="11"
+            TextTrimming="CharacterEllipsis">
+            /yly/ thread hadsasdadsahaB
+        </TextBlock>
+    </Button.Content>
+    <Button.Padding>
+        8,0,8,0
+    </Button.Padding>
+    <Button.BorderThickness>
+        <Thickness>1,1,1,1</Thickness>
+    </Button.BorderThickness>
+    <Button.BorderBrush>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Offset="1" Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}" />
+            <GradientStop Offset="0" Color="#FFE3E3E3" />
+        </LinearGradientBrush>
+    </Button.BorderBrush>
+    <Button.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="2,2,0,0" />
+        </Style>
+    </Button.Resources>
+    <Button.Background>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,0.99">
+            <GradientStop Color="#FFFAFAFA" />
+            <GradientStop Offset="1" Color="White" />
+        </LinearGradientBrush>
+    </Button.Background>
+</Button>

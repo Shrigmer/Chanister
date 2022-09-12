@@ -1,0 +1,18 @@
+﻿<Application
+    x:Class="ChanisterWpf.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ChanisterWpf"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:SkinResourceDictionary BlueSource="Classic_blue.xaml" />
+                <local:SkinResourceDictionary RedSource="Classic_red.xaml" />
+                <local:SkinResourceDictionary PurpleSource="Sakura_purple.xaml" />
+                <local:SkinResourceDictionary WhiteSource="White_is_tight.xaml" />
+                <ResourceDictionary Source="SkinStyling.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

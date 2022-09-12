@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ChanisterWpf">
+    <Style x:Key="PostBackgroundStyle" TargetType="Rectangle">
+        <Setter Property="Fill">
+            <Setter.Value>
+                <SolidColorBrush Color="{Binding Source={StaticResource PostBackground}, Path=Color}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BoardBackgroundStyle" TargetType="Rectangle">
+        <Setter Property="Fill">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0" Color="{Binding Source={StaticResource BoardBackground}, Path=Color}" />
+                    <GradientStop Offset="0.1" Color="White" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

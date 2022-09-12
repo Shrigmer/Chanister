@@ -1,0 +1,70 @@
+﻿<UserControl
+    x:Class="ChanisterWpf.Board"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ChanisterWpf="clr-namespace:ChanisterWpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="180"
+    Height="30"
+    d:DesignWidth="140"
+    mc:Ignorable="d">
+    <Grid Margin="0,0,0,0" VerticalAlignment="Top">
+        <TextBlock
+            x:Name="LetterTextBlock"
+            Width="35"
+            Height="27"
+            Margin="0,3,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontFamily="Roboto"
+            FontSize="11"
+            Foreground="#FF006F99"
+            Text="{Binding Data.board}"
+            TextAlignment="Center"
+            TextOptions.TextFormattingMode="Ideal"
+            TextWrapping="Wrap" />
+        <TextBlock
+            x:Name="NameTextBlock"
+            Margin="35,2,30,2"
+            FontSize="10"
+            Text="{Binding Data.title}"
+            TextAlignment="center"
+            TextOptions.TextFormattingMode="Ideal"
+            TextWrapping="Wrap" />
+        <TextBlock
+            x:Name="PagesOpenTextBlock"
+            Width="25"
+            Height="26"
+            Margin="0,3,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            FontFamily="Roboto"
+            FontSize="11"
+            Foreground="#668866"
+            TextAlignment="Center"
+            TextOptions.TextFormattingMode="Ideal"
+            TextWrapping="Wrap" />
+        <Button
+            x:Name="CloseButton"
+            Width="25"
+            Margin="5,5,5,5"
+            Padding="0"
+            HorizontalAlignment="Right"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Click="CloseButton_Click"
+            MouseLeave="CloseButton_MouseLeave"
+            MouseMove="CloseButton_MouseMove"
+            Opacity="0">
+            <Path
+                Width="8"
+                Height="10"
+                Data="M 18,11 27,20 M 18,20 27,11"
+                Stretch="Fill"
+                Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                StrokeThickness="1" />
+        </Button>
+        <!--  Text="{Binding SubPages.Count}"  -->
+    </Grid>
+</UserControl>

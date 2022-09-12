@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="ChanisterWpf.Tabs"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChanisterWpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Margin="0,0,0,0"
+    d:DesignHeight="50"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid
+        MinWidth="0"
+        MinHeight="0"
+        Margin="0,0,0,0">
+        <ScrollViewer
+            x:Name="RowViewer"
+            Grid.Row="1"
+            Margin="0,0,0,0"
+            Panel.ZIndex="9002"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="Stack" Orientation="Horizontal" />
+        </ScrollViewer>
+    </Grid>
+</UserControl>
