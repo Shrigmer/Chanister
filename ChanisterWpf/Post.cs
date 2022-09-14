@@ -36,15 +36,6 @@ namespace ChanisterWpf
             paragraph.Inlines.Add(new Run(TagParser.DecodeText(PostData.name)) { Foreground = MainWindow.solidGreen });
             paragraph.Inlines.Add(new Run($"  {PostData.now}"));
             paragraph.Inlines.Add(new Run($"  {PostData.no}  "));
-            /*for (int i = 1; i < QuotedBy.Count; i++)
-            {
-                Inline inline = QuotedBy[i];
-                if (((QuoteLink)QuotedBy[i]).PostQuoted == quotedByPost)
-                {
-                    inline.TextDecorations = TextDecorations.Underline;
-                }
-                paragraph.Inlines.Add(inline);
-            }*/
             paragraph.Inlines.AddRange(QuotedBy);
             LastQuote = QuotedBy[^1];
             paragraph.Inlines.Add(new LineBreak());

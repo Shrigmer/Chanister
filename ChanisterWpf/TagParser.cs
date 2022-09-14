@@ -22,7 +22,7 @@ namespace ChanisterWpf
         }
         private const RegexOptions Options = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline;
         private static readonly Regex[] tags = {
-            new Regex(@"^<span class=""quote"">(.*?)</span>$", Options),
+            new Regex(@"<span class=""quote"">(.*?)</span>", Options),
             new Regex(@"<pre class=""prettyprint"">(.*?)</pre>", Options ^ RegexOptions.Multiline | RegexOptions.Singleline),
             new Regex(@"<a href=""#p(\d*)"" class=""quotelink"">>>\d*</a>", Options),
             new Regex(@"<span class=""deadlink"">(.*?)</span>", Options),
@@ -85,15 +85,18 @@ namespace ChanisterWpf
         }
         public static void AddInlines(List<(int tagType, string text, GroupCollection groups)> tagList, InlineCollection inlines, int postNumber, int opNumber, int quotedByPost = 0)
         {
+            int lastTagType = -1;
             foreach ((int tagType, string text, GroupCollection groups) in tagList)
             {
+                if (lastTagType != -1 && tagType != -1) inlines.Add("\n");
+                lastTagType = tagType;
                 switch ((TagTypes)tagType)
                 {
                     case TagTypes.quote:
-                        inlines.Add(new Run("\n" + text) { Foreground = MainWindow.solidGreen });
+                        inlines.Add(new Run(text) { Foreground = MainWindow.solidGreen });
                         break;
                     case TagTypes.prettyprint:
-                        inlines.Add(new Run("\n" + text) { FontFamily = new FontFamily("Consolas") });
+                        inlines.Add(new Run(text) { FontFamily = new FontFamily("Consolas") });
                         break;
                     case TagTypes.quotelink:
                         try
@@ -104,7 +107,6 @@ namespace ChanisterWpf
                             {
                                 identifier = "(OP)";
                             }
-                            inlines.Add("\n");
                             QuoteLink link = new QuoteLink(postQuotedNumber, postNumber, identifier, true);
                             if (quotedByPost == postQuotedNumber)
                             {
@@ -118,7 +120,7 @@ namespace ChanisterWpf
                         }
                         break;
                     case TagTypes.deadlink:
-                        inlines.Add(new Run("\n" + text) { TextDecorations = TextDecorations.Strikethrough });
+                        inlines.Add(new Run(text) { TextDecorations = TextDecorations.Strikethrough });
                         break;
                     case TagTypes.spoiler:
                         Run spoiler = new(text)
@@ -136,7 +138,6 @@ namespace ChanisterWpf
                             Uri uri = new(text);
                             hyperlink.NavigateUri = uri;
                             hyperlink.RequestNavigate += NavigateHyperlink;
-                            inlines.Add("\n");
                             inlines.Add(hyperlink);
                         }
                         catch (Exception)
@@ -147,7 +148,6 @@ namespace ChanisterWpf
                         break;
                     case TagTypes.threadlink:
                         if (groups.Count < 4) break;
-                        inlines.Add("\n");
                         inlines.Add(new ThreadLink(groups[1].ToString(), Convert.ToInt32(groups[2].ToString()), Convert.ToInt32(groups[3].ToString())));
                         break;
                     default:
