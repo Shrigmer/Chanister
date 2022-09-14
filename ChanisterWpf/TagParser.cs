@@ -83,7 +83,7 @@ namespace ChanisterWpf
             tagList.Add((-1, text[i..], null));
             return tagList;
         }
-        public static void AddInlines(List<(int tagType, string text, GroupCollection groups)> tagList, InlineCollection inlines, int postNumber, int opNumber)
+        public static void AddInlines(List<(int tagType, string text, GroupCollection groups)> tagList, InlineCollection inlines, int postNumber, int opNumber, int quotedByPost = 0)
         {
             foreach ((int tagType, string text, GroupCollection groups) in tagList)
             {
@@ -104,8 +104,13 @@ namespace ChanisterWpf
                             {
                                 identifier = "(OP)";
                             }
-                            inlines.Add("\n ");
-                            inlines.Add(new QuoteLink(postQuotedNumber, postNumber, identifier, true));
+                            inlines.Add("\n");
+                            QuoteLink link = new QuoteLink(postQuotedNumber, postNumber, identifier, true);
+                            if (quotedByPost == postQuotedNumber)
+                            {
+                                link.FontWeight = FontWeights.Medium;
+                            }
+                            inlines.Add(link);
                         }
                         catch (Exception)
                         {

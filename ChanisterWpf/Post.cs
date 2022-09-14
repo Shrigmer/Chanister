@@ -25,7 +25,7 @@ namespace ChanisterWpf
             QuotedBy = new() { new Run("") };
             Paragraph = ConstructParagraph();
         }
-        public Paragraph ConstructParagraph(bool endLine = true)
+        public Paragraph ConstructParagraph(bool endLine = true, int quotedByPost = 0)
         {
             Paragraph paragraph = new()
             {
@@ -36,6 +36,15 @@ namespace ChanisterWpf
             paragraph.Inlines.Add(new Run(TagParser.DecodeText(PostData.name)) { Foreground = MainWindow.solidGreen });
             paragraph.Inlines.Add(new Run($"  {PostData.now}"));
             paragraph.Inlines.Add(new Run($"  {PostData.no}  "));
+            /*for (int i = 1; i < QuotedBy.Count; i++)
+            {
+                Inline inline = QuotedBy[i];
+                if (((QuoteLink)QuotedBy[i]).PostQuoted == quotedByPost)
+                {
+                    inline.TextDecorations = TextDecorations.Underline;
+                }
+                paragraph.Inlines.Add(inline);
+            }*/
             paragraph.Inlines.AddRange(QuotedBy);
             LastQuote = QuotedBy[^1];
             paragraph.Inlines.Add(new LineBreak());
@@ -80,7 +89,7 @@ namespace ChanisterWpf
                     paragraph.Inlines.Add(new LineBreak());
                 }
                 PostData.com = Task.Run(() => TagParser.DecodeText(PostData.com)).Result;
-                TagParser.AddInlines(Task.Run(() => { return TagParser.FindFormattedText(PostData.com); }).Result, paragraph.Inlines, PostData.no, OPNumber);
+                TagParser.AddInlines(Task.Run(() => { return TagParser.FindFormattedText(PostData.com); }).Result, paragraph.Inlines, PostData.no, OPNumber, quotedByPost);
             }
             if (endLine)
             {
@@ -97,7 +106,7 @@ namespace ChanisterWpf
                 Popup = null;
             }
         }
-        internal void HostInPopout()
+        internal void HostInPopout(int quotedByPost)
         {
             if (Popup is null)
             {
@@ -106,7 +115,7 @@ namespace ChanisterWpf
                 {
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    Document = new FlowDocument(ConstructParagraph(false))
+                    Document = new FlowDocument(ConstructParagraph(false, quotedByPost))
                 };
                 Popup.Grid.Children.Add(scrollViewer);
             }
