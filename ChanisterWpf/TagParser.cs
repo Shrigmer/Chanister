@@ -23,7 +23,7 @@ namespace ChanisterWpf
         private const RegexOptions Options = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline;
         private static readonly Regex[] tags = {
             new Regex(@"^<span class=""quote"">(.*?)</span>$", Options),
-            new Regex(@"<pre class=""prettyprint"">(.*?)</pre>", Options),
+            new Regex(@"<pre class=""prettyprint"">(.*?)</pre>", Options ^ RegexOptions.Multiline | RegexOptions.Singleline),
             new Regex(@"<a href=""#p(\d*)"" class=""quotelink"">>>\d*</a>", Options),
             new Regex(@"<span class=""deadlink"">(.*?)</span>", Options),
             new Regex(@"<s>(.*?)</s>", Options),
