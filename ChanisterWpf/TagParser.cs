@@ -19,6 +19,7 @@ namespace ChanisterWpf
             spoiler,
             link,
             threadlink,
+            catalogsearchlink,
         }
         private const RegexOptions Options = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Multiline;
         private static readonly Regex[] tags = {
@@ -29,6 +30,7 @@ namespace ChanisterWpf
             new Regex(@"<s>(.*?)</s>", Options),
             new Regex(@"(https?://(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?://(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}[^</span>])", Options),
             new Regex(@"<a href=""/(.+)/thread/(\d+)#p(\d+)"" class=""quotelink"">>>\d*</a>"),
+            new Regex(@"<a href="".*?"" class=""quotelink"">>>>/(.*?)/(.*?)</a>"),
         };
         public static string DecodeText(string text)
         {
@@ -149,6 +151,10 @@ namespace ChanisterWpf
                     case TagTypes.threadlink:
                         if (groups.Count < 4) break;
                         inlines.Add(new ThreadLink(groups[1].ToString(), Convert.ToInt32(groups[2].ToString()), Convert.ToInt32(groups[3].ToString())));
+                        break;
+                    case TagTypes.catalogsearchlink:
+                        //Implement search in the catalogue and jump to last thread that matches.
+                        inlines.Add($"/{groups[1]}/{groups[2]}/");
                         break;
                     default:
                         inlines.Add(new Run(text));
