@@ -16,7 +16,7 @@ namespace ChanisterWpf
             Board = board;
             Thread = thread;
             PostQuoted = post;
-            Text += $">>/{board}/{thread}/{post}";
+            Text += $">>>/{board}/{thread}/{post}";
             Foreground = MainWindow.solidRed;
             Tag = "threadlink";
             MouseMove += new MouseEventHandler(OnHover);

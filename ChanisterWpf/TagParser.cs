@@ -154,7 +154,7 @@ namespace ChanisterWpf
                         break;
                     case TagTypes.catalogsearchlink:
                         //Implement search in the catalogue and jump to last thread that matches.
-                        inlines.Add($"/{groups[1]}/{groups[2]}/");
+                        inlines.Add(new Run($">>>/{groups[1]}/{groups[2]}/") { Foreground = MainWindow.solidRed });
                         break;
                     default:
                         inlines.Add(new Run(text));

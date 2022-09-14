@@ -62,7 +62,7 @@ namespace ChanisterWpf
                 {
                     HorizontalAnchor = FigureHorizontalAnchor.ColumnLeft,
                     Width = new FigureLength(customImage.Image.MaxWidth + 20),
-                    Margin = new Thickness(0, 0, 15, 5)
+                    Margin = new Thickness(0, 0, 15, 0)
                 };
                 paragraph.Inlines.Add(new LineBreak());
                 paragraph.Inlines.Add(imagefigure);
