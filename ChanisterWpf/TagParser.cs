@@ -104,7 +104,7 @@ namespace ChanisterWpf
                             {
                                 identifier = "(OP)";
                             }
-                            inlines.Add("\n");
+                            inlines.Add("\n ");
                             inlines.Add(new QuoteLink(postQuotedNumber, postNumber, identifier, true));
                         }
                         catch (Exception)

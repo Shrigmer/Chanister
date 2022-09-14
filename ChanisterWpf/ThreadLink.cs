@@ -16,16 +16,23 @@ namespace ChanisterWpf
             Board = board;
             Thread = thread;
             PostQuoted = post;
-            Text += $" >>/{board}/{thread}/{post}";
+            Text += $">>/{board}/{thread}/{post}";
             Foreground = MainWindow.solidRed;
             Tag = "threadlink";
             MouseMove += new MouseEventHandler(OnHover);
+            MouseLeave += new MouseEventHandler(OnHoverEnd);
             MouseLeftButtonDown += new MouseButtonEventHandler(OpenThread);
+        }
+
+        private void OnHoverEnd(object sender, MouseEventArgs e)
+        {
+            TextDecorations = null;
         }
 
         private void OnHover(object sender, MouseEventArgs e)
         {
             Cursor = Cursors.Hand;
+            TextDecorations = System.Windows.TextDecorations.Underline;
         }
 
         private void OpenThread(object sender, MouseButtonEventArgs e)

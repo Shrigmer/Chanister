@@ -17,7 +17,7 @@ namespace ChanisterWpf
         {
             PostQuoted = postQuoted;
             QuotedByPost = quotedByPost;
-            Text += $" >>{PostQuoted} {qoutingTypeDescription}";
+            Text += $">>{PostQuoted} {qoutingTypeDescription}";
             Foreground = MainWindow.solidRed;
             Tag = "quotelink";
             Background = new SolidColorBrush(Colors.White);
@@ -33,10 +33,12 @@ namespace ChanisterWpf
         private void RaiseClosePopout(object sender, RoutedEventArgs e)
         {
             RaiseEvent(new(ClosePopout, this));
+            TextDecorations = null;
         }
         private void RaiseMovePopup(object sender, RoutedEventArgs e)
         {
             Cursor = Cursors.Hand;
+            TextDecorations = System.Windows.TextDecorations.Underline;
             RaiseEvent(new(MovePopup, this));
         }
         private void RaiseScrollToPost(object sender, RoutedEventArgs e)
