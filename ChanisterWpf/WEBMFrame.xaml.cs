@@ -15,6 +15,7 @@ namespace ChanisterWpf
     {
         public int PixelWidth { get; set; }
         public int PixelHeight { get; set; }
+        public int Size { get; set; }
         public Uri Uri { get; set; }
         public string WEBMUriString { get; set; }
         public Grid MediaFrameGrid { get; set; }
@@ -27,9 +28,6 @@ namespace ChanisterWpf
         public string ImageName { get; set; }
         public string Extension { get; set; }
 
-        int MediaSize;
-
-
         public WEBMFrame(Uri imageUri, string imagename, string extension, int pixelWidth, int pixelHeight, int size, long imgRef)
         {
             InitializeComponent();
@@ -40,7 +38,7 @@ namespace ChanisterWpf
             ImageName = imagename;
             Extension = extension;
             Uri = new(imageUri.OriginalString.Split(".webm")[0] + "s.jpg");
-            MediaSize = size;
+            Size = size;
             imgNameRef = Convert.ToInt64(imgRef);
             WEBMUriString = imageUri.OriginalString;
             mediaSing = MediaSingleton.Instance;
@@ -102,7 +100,7 @@ namespace ChanisterWpf
             {
                 Stream medStr = await MediaFrame.DownloadToStreamAsync(WEBMUriString);
                 mediaDictionary.TryAdd(imgNameRef, medStr);
-                mediaSing.dictSizeBytes += MediaSize;
+                mediaSing.dictSizeBytes += Size;
                 App.Current.VideoView.Player.Open(medStr);
             }
         }
@@ -140,7 +138,7 @@ namespace ChanisterWpf
         {
             Stream medStr = await MediaFrame.DownloadToStreamAsync(WEBMUriString);
             mediaDictionary.TryAdd(imgNameRef, medStr);
-            mediaSing.dictSizeBytes += MediaSize;
+            mediaSing.dictSizeBytes += Size;
         }
 
         public async void Open(object sender, RoutedEventArgs e)

@@ -14,6 +14,7 @@ namespace ChanisterWpf
     {
         public int PixelWidth { get; set; }
         public int PixelHeight { get; set; }
+        public int Size { get; set; }
         public ShadowedExtendedPopup Popup { get; set; } = null;
         public Uri Uri { get; set; }
         public Grid MediaFrameGrid { get; set; }

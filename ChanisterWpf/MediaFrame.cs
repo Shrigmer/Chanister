@@ -15,6 +15,7 @@ namespace ChanisterWpf
 
         public int PixelWidth { get; set; }
         public int PixelHeight { get; set; }
+        public int Size { get; set; }
         public Uri Uri { get; set; }
         public Grid MediaFrameGrid { get; set; }
         public Image Image { get; set; }
@@ -31,6 +32,7 @@ namespace ChanisterWpf
             PixelHeight = pixelHeight;
             ImageName = imagename;
             Extension = extension;
+            Size = size;
             if (pixelWidth < (int)Scale(Image.MaxWidth))
             {
                 Image.Width = pixelWidth;
@@ -41,20 +43,26 @@ namespace ChanisterWpf
             {
                 Image.Source = InitImage(imageUri, (int)Scale(Image.MaxWidth));
             }
+            SetFileInfo();
+        }
+
+        public void SetFileInfo()
+        {
             string unit = "B";
-            switch (size)
+            switch (Size)
             {
                 case >= 1048576:
-                    size /= 1048576;
+                    Size /= 1048576;
                     unit = "MB";
                     break;
                 case >= 1024:
-                    size /= 1024;
+                    Size /= 1024;
                     unit = "kB";
                     break;
             }
-            FileInfo.Text = Task.Run(() => { return $"{TagParser.DecodeText(imagename)}{extension}  {pixelWidth}x{pixelHeight} {size}{unit}"; }).Result;
+            FileInfo.Text = Task.Run(() => { return $"{TagParser.DecodeText(ImageName)}{Extension}  {PixelWidth}x{PixelHeight} {Size}{unit}"; }).Result;
         }
+
         public static BitmapImage InitImage(Uri uri, int width = 0, int height = 0)
         {
             try

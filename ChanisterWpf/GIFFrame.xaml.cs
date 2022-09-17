@@ -23,8 +23,17 @@ namespace ChanisterWpf
         public Image PopupImage { get; set; } = null;
         public bool isAnimating { get; set; } = false;
         public Animator Animator { get; set; } = null;
+        public MediaFrame MFBase { get => mediaFrame; set => mediaFrame = (MediaFrameUserControl)value; }
+        public int PixelWidth { get; set; }
+        public int PixelHeight { get; set; }
+        public int Size { get; set; }
         public string ImageName { get; set; }
         public string Extension { get; set; }
+        public ShadowedExtendedPopup Popup { get; set; }
+        public Uri Uri { get => MFBase.Uri; set => MFBase.Uri = value; }
+        public Grid MediaFrameGrid { get => MFBase.MediaFrameGrid; set => MFBase.MediaFrameGrid = value; }
+        public Image Image { get => MFBase.Image; set => MFBase.Image = value; }
+        public TextBlock FileInfo { get => MFBase.FileInfo; set => MFBase.FileInfo = value; }
 
         public GIFFrame(Uri imageUri, string imagename, string extension, int pixelWidth, int pixelHeight, int size)
         {
@@ -33,12 +42,14 @@ namespace ChanisterWpf
             FileInfo = mediaFrame.FileInfo;
             PixelWidth = pixelWidth;
             PixelHeight = pixelHeight;
+            Size = size;
             ImageName = imagename;
             Extension = extension;
             GIFUri = imageUri;
             AnimationBehavior.SetSourceUri(Image, GIFUri); AnimationBehavior.SetAutoStart(Image, false);
             AnimationBehavior.AddLoadedHandler(Image, (e, s) => { Animator = AnimationBehavior.GetAnimator(Image); });
             ((MediaFrame)mediaFrame).SetBaseImage(imageUri, imagename, extension, pixelWidth, pixelHeight, size);
+            MFBase.SetFileInfo();
         }
         public void PopOut(object sender, MouseEventArgs e)
         {
