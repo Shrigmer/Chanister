@@ -79,6 +79,10 @@ namespace ChanisterWpf
                 }
             }
         }
+        public void CopyUrl(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetData(DataFormats.Text, WEBMUriString);
+        }
         public async void Copy(object sender, RoutedEventArgs e)
         {
             if (!mediaDictionary.ContainsKey(imgNameRef))
