@@ -12,15 +12,7 @@ namespace ChanisterWpf
 {
     public partial class GIFFrame : UserControl, MediaFrame
     {
-        public int PixelWidth { get; set; }
-        public int PixelHeight { get; set; }
-        public Uri Uri { get; set; }
         public Uri GIFUri { get; set; }
-        public Grid MediaFrameGrid { get; set; }
-        public Image Image { get; set; }
-        public TextBlock FileInfo { get; set; }
-        public ShadowedExtendedPopup Popup { get; set; } = null;
-        public Image PopupImage { get; set; } = null;
         public bool isAnimating { get; set; } = false;
         public Animator Animator { get; set; } = null;
         public MediaFrame MFBase { get => mediaFrame; set => mediaFrame = (MediaFrameUserControl)value; }
@@ -46,11 +38,34 @@ namespace ChanisterWpf
             ImageName = imagename;
             Extension = extension;
             GIFUri = imageUri;
-            AnimationBehavior.SetSourceUri(Image, GIFUri); AnimationBehavior.SetAutoStart(Image, false);
-            AnimationBehavior.AddLoadedHandler(Image, (e, s) => { Animator = AnimationBehavior.GetAnimator(Image); });
-            ((MediaFrame)mediaFrame).SetBaseImage(imageUri, imagename, extension, pixelWidth, pixelHeight, size);
+            AnimationBehavior.SetSourceUri(Image, GIFUri);
+            AnimationBehavior.SetAutoStart(Image, false);
+            AnimationBehavior.AddLoadedHandler(Image, AnimatorLoadedHandler);
             MFBase.SetFileInfo();
+            Image.SizeChanged += SizeChangedHandler;
         }
+        private void AnimatorLoadedHandler(object sender, RoutedEventArgs e)
+        {
+            Animator = AnimationBehavior.GetAnimator(Image);
+        }
+        bool first = true;
+        double firstWidth = 0;
+        double firstHeight = 0;
+        private void SizeChangedHandler(object sender, EventArgs e) //Prevents the page view from going ballistic, changing the size when scrolling
+        {
+            if (first)
+            {
+                first = false;
+                firstWidth = ActualWidth;
+                firstHeight = ActualHeight;
+            }
+            else
+            {
+                Width = firstWidth;
+                Height = firstHeight;
+            }
+        }
+
         public void PopOut(object sender, MouseEventArgs e)
         {
             if (Animator is not null)
