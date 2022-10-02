@@ -36,6 +36,10 @@ namespace ChanisterWpf
             FileInfo = mediaFrame.FileInfo;
             ((MediaFrame)mediaFrame).SetBaseImage(imageUri, imagename, extension, pixelWidth, pixelHeight, size);
         }
+        public new void MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Popup is not null) Popup.MoveToCursor(20, -20);
+        }
         public void PopOut(object sender, MouseEventArgs e)
         {
             if (Popup is null)
@@ -45,6 +49,9 @@ namespace ChanisterWpf
                     Source = MediaFrame.InitImage(Uri, PixelWidth, PixelHeight)
                 };
                 Popup = new() { AllowsTransparency = true, IsOpen = true };
+                Popup.MouseEnter += PopOut;
+                Popup.MouseLeave += PopOut;
+                Popup.MouseMove += MouseMove;
                 Popup.Grid.Children.Add(copy);
                 PopUpImage = copy;
                 Timer time = new()
@@ -85,6 +92,7 @@ namespace ChanisterWpf
             SaveFileDialog saveDialog = new()
             {
                 Title = "Save picture as ",
+                FileName = ImageName + Extension,
                 Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp"
             };
             if ((bool)saveDialog.ShowDialog())

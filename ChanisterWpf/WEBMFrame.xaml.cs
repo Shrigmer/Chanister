@@ -56,6 +56,9 @@ namespace ChanisterWpf
                     Width = MediaFrame.Scale(PixelWidth),
                     Height = MediaFrame.Scale(PixelHeight)
                 };
+                Popup.MouseEnter += PopOut;
+                Popup.MouseLeave += PopOut;
+                Popup.MouseMove += MouseMove;
                 Popup.Grid.Children.Clear();
                 Popup.Grid.Children.Add(App.Current.VideoView);
                 await OpenWEBM();
@@ -103,6 +106,10 @@ namespace ChanisterWpf
                 mediaSing.dictSizeBytes += Size;
                 App.Current.VideoView.Player.Open(medStr);
             }
+        }
+        public new void MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Popup is not null) Popup.MoveToCursor(20, -20);
         }
         public async void Save(object sender, RoutedEventArgs e)
         {

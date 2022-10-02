@@ -13,7 +13,8 @@ namespace ChanisterWpf
         public static readonly RoutedEvent ScrollToPost = EventManager.RegisterRoutedEvent("ScrollToPost", RoutingStrategy.Tunnel, typeof(RoutedEventHandler), typeof(QuoteLink));
         public int QuotedByPost { get; set; }
         public int PostQuoted { get; set; }
-        public QuoteLink(int postQuoted, int quotedByPost, string qoutingTypeDescription, bool EnableEvents)
+        public bool EnableEvents { get; set; }
+        public QuoteLink(int postQuoted, int quotedByPost, string qoutingTypeDescription, bool enableEvents)
         {
             PostQuoted = postQuoted;
             QuotedByPost = quotedByPost;
@@ -21,6 +22,7 @@ namespace ChanisterWpf
             Foreground = MainWindow.solidRed;
             Tag = "quotelink";
             Background = new SolidColorBrush(Colors.White);
+            EnableEvents = enableEvents;
             if (EnableEvents) Loaded += new(RaiseQuoted);
             MouseLeave += new MouseEventHandler(RaiseClosePopout);
             MouseMove += new MouseEventHandler(RaiseMovePopup);
@@ -30,18 +32,18 @@ namespace ChanisterWpf
         {
             RaiseEvent(new(Quoted, this));
         }
-        private void RaiseClosePopout(object sender, RoutedEventArgs e)
+        public void RaiseClosePopout(object sender, RoutedEventArgs e)
         {
             RaiseEvent(new(ClosePopout, this));
             TextDecorations = null;
         }
-        private void RaiseMovePopup(object sender, RoutedEventArgs e)
+        public void RaiseMovePopup(object sender, RoutedEventArgs e)
         {
             Cursor = Cursors.Hand;
             TextDecorations = System.Windows.TextDecorations.Underline;
             RaiseEvent(new(MovePopup, this));
         }
-        private void RaiseScrollToPost(object sender, RoutedEventArgs e)
+        public void RaiseScrollToPost(object sender, RoutedEventArgs e)
         {
             RaiseEvent(new(ScrollToPost, this));
         }

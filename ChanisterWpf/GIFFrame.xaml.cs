@@ -65,7 +65,6 @@ namespace ChanisterWpf
                 Height = firstHeight;
             }
         }
-
         public void PopOut(object sender, MouseEventArgs e)
         {
             if (Animator is not null)
@@ -96,6 +95,7 @@ namespace ChanisterWpf
             SaveFileDialog saveDialog = new()
             {
                 Title = "Save video as ",
+                FileName = ImageName + Extension,
                 Filter = "Image Files(*gif)|*gif"
             };
             if ((bool)saveDialog.ShowDialog())

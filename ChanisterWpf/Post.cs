@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -94,10 +95,9 @@ namespace ChanisterWpf
             if (Popup is not null)
             {
                 Popup.IsOpen = false;
-                Popup = null;
             }
         }
-        internal void HostInPopout(int quotedByPost)
+        internal void HostInPopout(int quotedByPost, QuoteLink quoteLink)
         {
             if (Popup is null)
             {
@@ -108,10 +108,28 @@ namespace ChanisterWpf
                     HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                     Document = new FlowDocument(ConstructParagraph(false, quotedByPost))
                 };
+                Popup.MouseLeave += quoteLink.RaiseClosePopout;
+                Popup.MouseMove += quoteLink.RaiseMovePopup;
                 Popup.Grid.Children.Add(scrollViewer);
+                Timer time = new()
+                {
+                    Interval = 60000
+                };
+                time.Elapsed += KillPopup;
+                time.Start();
             }
             Popup.IsOpen = true;
             Popup.MoveToCursor(20, 10);
+        }
+        private void KillPopup(object sender, EventArgs e)
+        {
+            Timer time = (Timer)sender;
+            time.Stop();
+            Popup.Dispatcher.Invoke(() =>
+            {
+                Popup.Grid.Children.Clear();
+                Popup = null;
+            });
         }
     }
 }

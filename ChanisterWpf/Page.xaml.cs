@@ -159,7 +159,7 @@ namespace ChanisterWpf
 
                 if (Posts.ContainsKey(quoteLink.PostQuoted))
                 {
-                    Posts[quoteLink.PostQuoted].HostInPopout(quoteLink.QuotedByPost);
+                    Posts[quoteLink.PostQuoted].HostInPopout(quoteLink.QuotedByPost, quoteLink);
                 }
             }
         }

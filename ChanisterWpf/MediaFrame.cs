@@ -95,13 +95,9 @@ namespace ChanisterWpf
             {
                 return null;
             }
-
         }
         public void PopOut(object sender, MouseEventArgs e) { }
-        public void MouseMove(object sender, MouseEventArgs e)
-        {
-            if (Popup is not null) Popup.MoveToCursor(20, -20);
-        }
+        public void MouseMove(object sender, MouseEventArgs e) { }
         public void Save(object sender, RoutedEventArgs e) { }
         public void SaveAs(object sender, RoutedEventArgs e) { }
         public void CopyUrl(object sender, RoutedEventArgs e)
