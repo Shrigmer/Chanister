@@ -36,7 +36,9 @@ namespace ChanisterWpf
             listView.Items.Clear();
             foreach (Board navlink in boardlist)
             {
-                if (navlink.LetterTextBlock.Text.ToLower() == box.Text.ToLower() || navlink.NameTextBlock.Text.ToLower().Contains(box.Text.ToLower()))
+                if (navlink.LetterTextBlock.Text.ToLower() == box.Text.ToLower() ||
+                    navlink.LetterTextBlock.Text.ToLower().Contains(box.Text.ToLower()) ||
+                    navlink.NameTextBlock.Text.ToLower().Contains(box.Text.ToLower()))
                 {
                     listView.Items.Add(navlink);
                 }
